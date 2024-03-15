@@ -1,4 +1,4 @@
-package com.example.design.strategy.weapon;
+package com.example.design.strategy.example;
 
 public class TakeWeapon {
 
