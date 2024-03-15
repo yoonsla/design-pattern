@@ -5,6 +5,7 @@ import com.example.design.command.example.AlarmStartCommand;
 import com.example.design.command.example.Button;
 import com.example.design.command.example.Lamp;
 import com.example.design.command.example.LampOnCommand;
+import com.example.design.singleton.example.Singleton;
 import com.example.design.strategy.basic.ConcreteStrategyA;
 import com.example.design.strategy.basic.ConcreteStrategyB;
 import com.example.design.strategy.basic.Context;
@@ -55,5 +56,37 @@ public class DesignApplication {
 
         Button alarmButton = new Button(alarmStartCommand);
         alarmButton.pressed();
+
+        // singleton 패턴 !!!!!!!
+        // 기본 예제 singleton 패턴 적용
+//        Singleton instance1 = Singleton.getInstance();
+//        Singleton instance2 = Singleton.getInstance();
+//        Singleton instance3 = Singleton.getInstance();
+//        System.out.println("instance1: " + instance1);
+//        System.out.println("instance2: " + instance2);
+//        System.out.println("instance3: " + instance3);
+//
+//        System.out.println(instance1 == instance2);
+//        System.out.println(instance1 == instance3);
+
+        // Thread Safe하지 않는 문제점이 있다.
+        // Thread가 동시 실행되면 싱글톤 객체가 두번 초기화되어 다른 주소를 참조할 수 있다.
+        Thread thread1 = new Thread(() -> {
+            Singleton singleton = Singleton.getInstance();
+            System.out.println(singleton);
+        });
+
+        Thread thread2 = new Thread(() -> {
+            Singleton singleton = Singleton.getInstance();
+            System.out.println(singleton);
+        });
+
+        Thread thread3 = new Thread(() -> {
+            Singleton singleton = Singleton.getInstance();
+            System.out.println(singleton);
+        });
+        thread1.start();
+        thread2.start();
+        thread3.start();
     }
 }
